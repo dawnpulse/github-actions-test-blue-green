@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Login to Container Registry
-        run: docker login -u ${{ secrets.REGISTRY_USERNAME }} -p "${{ secrets.REGISTRY_PASSWORD }}" ${{ secrets.REGISTRY_URL }}
+        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin ${{ secrets.REGISTRY_URL }}
 
       - name: Confirm Docker Login
         run: "echo Docker login successful. Registry: ${{ secrets.REGISTRY_URL }} Repository: ${{ secrets.REPO_NAME }}"
