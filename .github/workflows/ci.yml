@@ -31,8 +31,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Login to Container Registry
-        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin ${{ secrets.REGISTRY_URL }}
+      - name: Write GCR key to file
+        run: echo "${{ secrets.REGISTRY_PASSWORD }}" > key.json
+
+      - name: Docker Login
+        run: |
+          cat key.json | docker login \
+            -u ${{ secrets.REGISTRY_USERNAME }} \
+            --password-stdin \
+            ${{ secrets.REGISTRY_URL }}
 
       - name: Confirm Docker Login
         run: "echo Docker login successful. Registry: ${{ secrets.REGISTRY_URL }} Repository: ${{ secrets.REPO_NAME }}"
