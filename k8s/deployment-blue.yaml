@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: <REGISTRY>/<REPO>:blue
+        image: <REGISTRY>/<repo>:blue
         ports:
         - containerPort: 8080
 
