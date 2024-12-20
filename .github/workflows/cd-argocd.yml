@@ -1,0 +1,22 @@
+name: CD-ArgoCD-GitOps
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'k8s/**'
+
+jobs:
+  notify-argocd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Force ArgoCD sync (optional)
+        run: |
+          # If you want to trigger a sync via CLI:
+          # Requires ArgoCD CLI and credentials
+          # Or rely on ArgoCD's auto sync.
+          # Example:
+          argocd app sync myapp --grpc-web
+
