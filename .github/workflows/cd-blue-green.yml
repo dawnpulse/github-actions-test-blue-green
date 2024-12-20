@@ -14,10 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Download image tag artifact
-        uses: actions/download-artifact@v3
+      - name: Upload image tag artifact
+        uses: actions/upload-artifact@v3
         with:
           name: image_tag
+          path: image_tag.txt
 
       - name: Read image tag
         id: image_tag
