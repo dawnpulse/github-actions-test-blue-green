@@ -31,8 +31,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Write GCR key to file
-        run: echo "${{ secrets.REGISTRY_PASSWORD }}" > key.json
+      - name: Write JSON key to file
+        run: printf "%s" "${{ secrets.REGISTRY_PASSWORD }}" > key.json
 
       - name: Docker Login
         run: cat key.json | docker login -u _json_key --password-stdin europe-north1-docker.pkg.dev
