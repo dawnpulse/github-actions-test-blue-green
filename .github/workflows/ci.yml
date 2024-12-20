@@ -32,12 +32,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Write JSON key to file
-        run: printf "%s" "${{ secrets.REGISTRY_PASSWORD }}" > key.json
+        env:
+          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+        run: |
+          echo "$REGISTRY_PASSWORD" > key.json
 
       - name: Debug secret output (NOT RECOMMENDED)
+        env:
+          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
         run: |
-          echo "REGISTRY_PASSWORD is:"
-          echo "${{ secrets.REGISTRY_PASSWORD }}"
+          echo key.json
 
       - name: Docker Login
         run: cat key.json | docker login -u _json_key --password-stdin europe-north1-docker.pkg.dev
