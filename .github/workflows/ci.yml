@@ -34,6 +34,11 @@ jobs:
       - name: Login to Container Registry
         run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin
 
+      - name: Confirm Docker Login
+        run:
+          echo "Docker login successful. Registry:
+            ${{ secrets.REGISTRY_URL }} Repository: ${{ secrets.REPO_NAME }}"
+
       - name: Build image
         run: |
           docker build -t ${{ secrets.REGISTRY_URL }}/${{ secrets.REPO_NAME }}:${{ github.sha }} .
