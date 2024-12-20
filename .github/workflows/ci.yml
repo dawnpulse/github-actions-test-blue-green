@@ -19,10 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install --no-cache-dir -r requirements.txt
 
-      - name: Run tests
-        run: pytest app/tests
+      - name: Run tests (unittest)
+        run: |
+          python -m unittest discover app/tests
 
   build-and-push:
     needs: build-test
