@@ -1,5 +1,5 @@
-FROM python:3.11-alpine
+FROM python:3.10-alpine
 WORKDIR /app
-COPY app/ ./app
-EXPOSE 8080
-CMD ["python", "app/main.py"]
+COPY main.py test_main.py ./
+RUN python test_main.py
+CMD ["python", "main.py"]
