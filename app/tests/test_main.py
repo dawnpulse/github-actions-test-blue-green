@@ -1,12 +1,19 @@
-import pytest
-from ..main import app
+import subprocess
+import time
+import urllib.request
+import os
 
-@pytest.fixture
-def client():
-    with app.test_client() as client:
-        yield client
 
-def test_hello(client):
-    response = client.get('/')
-    assert response.status_code == 200
-    assert "Hello World!" in response.data.decode()
+def test_hello():
+    # Start the server
+    proc = subprocess.Popen(["python", "main.py"], cwd=os.path.dirname(__file__))
+    time.sleep(1)  # Give the server a moment to start up
+
+    try:
+        with urllib.request.urlopen("http://localhost:8080") as response:
+            body = response.read().decode()
+            assert response.status == 200
+            assert "Hello, World!" in body
+    finally:
+        proc.terminate()
+        proc.wait()
